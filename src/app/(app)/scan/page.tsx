@@ -85,8 +85,10 @@ export default function ScanPage() {
       })
       toast.success('영수증이 저장되었습니다!')
       router.push('/receipts')
-    } catch {
-      toast.error('저장에 실패했습니다')
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err)
+      toast.error(`저장 실패: ${msg}`)
+      console.error('Save error:', err)
     } finally {
       setSaving(false)
     }
