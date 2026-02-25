@@ -42,25 +42,16 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-dvh bg-gradient-to-br from-emerald-50 via-teal-50 to-emerald-100 flex flex-col items-center justify-center px-6 relative overflow-hidden animate-gradient">
-      {/* Subtle background pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-20 left-8 w-32 h-32 gradient-primary rounded-full animate-pulse-soft"></div>
-        <div className="absolute top-40 right-12 w-20 h-20 gradient-teal rounded-full animate-bounce-soft"></div>
-        <div className="absolute bottom-32 left-16 w-24 h-24 gradient-emerald rounded-full animate-wiggle"></div>
-        <div className="absolute bottom-20 right-8 w-16 h-16 gradient-primary rounded-full animate-pulse-soft"></div>
-      </div>
-
-      <div className="w-full max-w-sm relative z-10 animate-fade-in-up">
-        {/* Floating card container */}
-        <div className="glass-card rounded-3xl p-8 shadow-glass hover-lift">
+    <div className="min-h-dvh bg-white flex flex-col items-center justify-center px-6">
+      <div className="w-full max-w-sm animate-fade-in">
+        <div className="rounded-2xl p-6">
           {/* Logo */}
           <div className="text-center mb-8">
-            <div className="inline-flex rounded-2xl gradient-primary p-4 mb-4 shadow-glow animate-pulse-soft">
-              <Receipt className="h-10 w-10 text-white" />
+            <div className="inline-flex rounded-2xl bg-emerald-50 p-3.5 mb-4">
+              <Receipt className="h-8 w-8 text-emerald-600" />
             </div>
-            <h1 className="text-3xl font-bold gradient-text mb-2">영수증AI</h1>
-            <p className="text-sm text-gray-600">AI 경비 자동 관리</p>
+            <h1 className="text-2xl font-bold text-gray-900 mb-1">영수증AI</h1>
+            <p className="text-sm text-gray-400">AI 경비 자동 관리</p>
           </div>
 
           {/* Tabs */}
@@ -124,7 +115,7 @@ export default function LoginPage() {
             <button 
               type="submit" 
               disabled={loading}
-              className="w-full py-4 gradient-primary text-white font-bold rounded-xl shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 disabled:opacity-50 disabled:cursor-not-allowed transition-all hover-lift active:scale-95"
+              className="w-full py-3.5 bg-emerald-600 text-white font-semibold rounded-xl shadow-md shadow-emerald-600/20 hover:bg-emerald-700 disabled:opacity-50 transition-all"
             >
               {loading ? (
                 <div className="flex items-center justify-center gap-2">
@@ -148,7 +139,7 @@ export default function LoginPage() {
 
           <button 
             onClick={handleGoogle}
-            className="w-full flex items-center justify-center gap-3 py-4 bg-white border-2 border-gray-200 rounded-xl text-sm font-bold hover:border-gray-300 hover:bg-gray-50 transition-all hover-lift active:scale-95"
+            className="w-full flex items-center justify-center gap-3 py-3.5 bg-white border border-gray-200 rounded-xl text-sm font-medium hover:bg-gray-50 transition-all"
           >
             <svg className="h-5 w-5" viewBox="0 0 24 24">
               <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/>

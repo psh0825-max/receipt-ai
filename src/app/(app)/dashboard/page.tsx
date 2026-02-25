@@ -93,34 +93,26 @@ export default function DashboardPage() {
         </button>
       </div>
 
-      {/* Hero Card with Sparkle Pattern */}
-      <div className="relative glass-card rounded-3xl p-6 gradient-primary text-white shadow-glow overflow-hidden animate-fade-in animate-stagger-1">
-        {/* Sparkle pattern overlay */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-4 left-8 w-1 h-1 bg-white rounded-full animate-ping"></div>
-          <div className="absolute top-12 right-12 w-2 h-2 bg-white rounded-full animate-pulse-soft"></div>
-          <div className="absolute bottom-8 left-16 w-1 h-1 bg-white rounded-full animate-bounce-soft"></div>
-          <div className="absolute bottom-16 right-8 w-1.5 h-1.5 bg-white rounded-full animate-ping animation-delay-1000"></div>
-          <div className="absolute top-20 left-1/2 w-1 h-1 bg-white rounded-full animate-pulse-soft animation-delay-500"></div>
-        </div>
-        
-        <div className="relative">
-          <p className="text-emerald-100 text-sm mb-2 flex items-center gap-2">
+      {/* Hero Card */}
+      <div className="bg-gray-900 rounded-2xl p-6 text-white animate-fade-in animate-stagger-1">
+        <div>
+          <p className="text-gray-400 text-sm mb-2 flex items-center gap-2">
             <TrendingUp className="h-4 w-4" />
             이번 달 총 지출
           </p>
-          <p className="text-4xl font-extrabold mb-4 animate-fade-in">
+          <p className="text-3xl font-extrabold mb-4">
             {formatAmount(stats?.total || 0)}
           </p>
-          <div className="flex items-center justify-between text-sm text-emerald-100">
+          <div className="flex items-center justify-between text-sm text-gray-400">
             <span>영수증 {stats?.count || 0}건</span>
             <div className="flex items-center gap-2">
               <Target className="h-4 w-4" />
-              <span>목표 달성률 87%</span>
+              <span>일평균 {formatAmount(Math.round((stats?.total || 0) / new Date().getDate()))}</span>
             </div>
           </div>
         </div>
       </div>
+
 
       {/* Quick Stats */}
       <div className="grid grid-cols-3 gap-3 animate-fade-in animate-stagger-2">

@@ -106,24 +106,16 @@ export default function ReportPage() {
       </div>
 
       {/* Hero Summary Card */}
-      <div className="relative glass-card rounded-3xl p-6 gradient-primary text-white shadow-glow overflow-hidden animate-fade-in animate-stagger-1">
-        {/* Animated sparkle pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-6 left-8 w-1 h-1 bg-white rounded-full animate-ping"></div>
-          <div className="absolute top-12 right-12 w-2 h-2 bg-white rounded-full animate-pulse-soft"></div>
-          <div className="absolute bottom-8 left-16 w-1 h-1 bg-white rounded-full animate-bounce-soft"></div>
-          <div className="absolute bottom-16 right-8 w-1.5 h-1.5 bg-white rounded-full animate-ping animation-delay-1000"></div>
-        </div>
-
-        <div className="relative">
+      <div className="bg-gray-900 rounded-2xl p-6 text-white animate-fade-in animate-stagger-1">
+        <div>
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
-              <TrendingUp className="h-5 w-5 text-emerald-200" />
-              <span className="text-emerald-200 text-sm">이번 달 총 지출</span>
+              <TrendingUp className="h-5 w-5 text-gray-400" />
+              <span className="text-gray-400 text-sm">이번 달 총 지출</span>
             </div>
             {totalChange !== 0 && (
               <div className={`flex items-center gap-1 px-2 py-1 rounded-full text-xs font-semibold ${
-                totalChange > 0 ? 'bg-red-500/20 text-red-100' : 'bg-green-500/20 text-green-100'
+                totalChange > 0 ? 'bg-red-500/20 text-red-300' : 'bg-green-500/20 text-green-300'
               }`}>
                 {totalChange > 0 ? <TrendingUp className="h-3 w-3" /> : <TrendingDown className="h-3 w-3" />}
                 {Math.abs(totalChange).toFixed(1)}%
@@ -131,11 +123,11 @@ export default function ReportPage() {
             )}
           </div>
           
-          <div className="text-4xl font-extrabold mb-4 animate-fade-in">
+          <div className="text-3xl font-extrabold mb-4 animate-fade-in">
             {formatAmount(stats?.total || 0)}
           </div>
           
-          <div className="grid grid-cols-3 gap-4 text-emerald-100 text-sm">
+          <div className="grid grid-cols-3 gap-4 text-gray-400 text-sm">
             <div>
               <div className="text-xl font-bold text-white">{stats?.count || 0}</div>
               <div className="flex items-center gap-1">건수</div>
