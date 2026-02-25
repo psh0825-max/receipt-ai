@@ -151,6 +151,22 @@ export default function SettingsPage() {
             </div>
             <ExternalLink className="h-4 w-4 text-gray-400" />
           </button>
+
+          {/* Guide */}
+          <a 
+            href="/guide"
+            target="_blank"
+            className="w-full p-4 flex items-center gap-4 text-left hover:bg-gray-50 transition-colors"
+          >
+            <div className="w-10 h-10 bg-emerald-100 rounded-xl flex items-center justify-center">
+              <Info className="h-5 w-5 text-emerald-600" />
+            </div>
+            <div className="flex-1">
+              <p className="font-semibold text-gray-800">사용 안내서</p>
+              <p className="text-xs text-gray-500">앱 사용법 및 촬영 팁</p>
+            </div>
+            <ExternalLink className="h-4 w-4 text-gray-400" />
+          </a>
         </div>
       </div>
 
