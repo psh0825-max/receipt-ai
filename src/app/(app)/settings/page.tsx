@@ -11,18 +11,18 @@ export default function SettingsPage() {
   const [notifications, setNotifications] = useState(true)
   const [darkMode, setDarkMode] = useState(false)
   const router = useRouter()
-  const supabase = createClient()
 
   useEffect(() => {
     async function getUser() {
-      const { data: { user } } = await supabase.auth.getUser()
+      const sb = createClient()
+      const { data: { user } } = await sb.auth.getUser()
       setUser(user)
     }
     getUser()
   }, [])
 
   async function handleLogout() {
-    await supabase.auth.signOut()
+    await createClient().auth.signOut()
     router.push('/')
   }
 
