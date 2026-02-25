@@ -10,20 +10,24 @@ import { ko } from 'date-fns/locale'
 
 export default function DashboardPage() {
   const [stats, setStats] = useState<{ total: number; count: number; byCategory: Record<string, number> } | null>(null)
+  const [prevStats, setPrevStats] = useState<{ total: number; count: number } | null>(null)
   const [recent, setRecent] = useState<Receipt[]>([])
   const [loading, setLoading] = useState(true)
   const [currentDate, setCurrentDate] = useState(new Date())
   const month = format(currentDate, 'yyyy-MM')
+  const prevMonth = format(subMonths(currentDate, 1), 'yyyy-MM')
 
   useEffect(() => {
     async function load() {
       setLoading(true)
       try {
-        const [s, r] = await Promise.all([
+        const [s, r, ps] = await Promise.all([
           getMonthlyStats(month),
           getReceipts({ month }),
+          getMonthlyStats(prevMonth),
         ])
         setStats(s)
+        setPrevStats(ps)
         setRecent(r.slice(0, 5))
       } catch { /* */ } finally { 
         setLoading(false) 
@@ -100,15 +104,32 @@ export default function DashboardPage() {
             <TrendingUp className="h-4 w-4" />
             이번 달 총 지출
           </p>
-          <p className="text-3xl font-extrabold mb-4">
+          <p className="text-3xl font-extrabold mb-3">
             {formatAmount(stats?.total || 0)}
           </p>
+          {/* 전월 대비 */}
+          {prevStats && prevStats.total > 0 && (
+            <div className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold mb-3 ${
+              (stats?.total || 0) <= prevStats.total 
+                ? 'bg-emerald-500/20 text-emerald-300' 
+                : 'bg-red-500/20 text-red-300'
+            }`}>
+              {(stats?.total || 0) <= prevStats.total ? (
+                <>
+                  <TrendingDown className="h-3 w-3" />
+                  전월 대비 {formatAmount(prevStats.total - (stats?.total || 0))} 절약 💰
+                </>
+              ) : (
+                <>
+                  <TrendingUp className="h-3 w-3" />
+                  전월 대비 {formatAmount((stats?.total || 0) - prevStats.total)} 더 사용
+                </>
+              )}
+            </div>
+          )}
           <div className="flex items-center justify-between text-sm text-gray-400">
             <span>영수증 {stats?.count || 0}건</span>
-            <div className="flex items-center gap-2">
-              <Target className="h-4 w-4" />
-              <span>일평균 {formatAmount(Math.round((stats?.total || 0) / new Date().getDate()))}</span>
-            </div>
+            <span>일평균 {formatAmount(Math.round((stats?.total || 0) / Math.max(new Date().getDate(), 1)))}</span>
           </div>
         </div>
       </div>
