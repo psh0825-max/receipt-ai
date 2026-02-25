@@ -148,10 +148,14 @@ export default function ReportPage() {
       {(stats?.count || 0) > 0 && (
         <div className="grid grid-cols-2 gap-3 animate-fade-in animate-stagger-2">
           <div className="glass-card rounded-2xl p-4 text-center hover-lift">
-            <div className="text-2xl mb-2">🎯</div>
-            <div className="text-sm font-semibold text-gray-700">목표 달성률</div>
-            <div className="text-xl font-bold text-emerald-600">
-              {Math.min(Math.round(((stats?.total || 0) / 500000) * 100), 100)}%
+            <div className="text-2xl mb-2">{(prevStats?.total || 0) > 0 && (stats?.total || 0) <= prevStats!.total ? '📉' : '📈'}</div>
+            <div className="text-sm font-semibold text-gray-700">전월 대비</div>
+            <div className={`text-lg font-bold ${(prevStats?.total || 0) > 0 && (stats?.total || 0) <= prevStats!.total ? 'text-emerald-600' : 'text-red-500'}`}>
+              {(prevStats?.total || 0) > 0 
+                ? (stats?.total || 0) <= prevStats!.total 
+                  ? `${formatAmount(prevStats!.total - (stats?.total || 0))} 절약`
+                  : `${formatAmount((stats?.total || 0) - prevStats!.total)} 초과`
+                : '데이터 없음'}
             </div>
           </div>
           <div className="glass-card rounded-2xl p-4 text-center hover-lift">
