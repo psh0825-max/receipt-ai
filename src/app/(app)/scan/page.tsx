@@ -241,18 +241,36 @@ export default function ScanPage() {
 
             <div className="space-y-4">
               <div className="flex justify-between items-center py-2 border-b border-dashed border-gray-200">
-                <span className="text-gray-600">🏪 가게명</span>
-                <span className="font-bold text-lg">{result.store_name}</span>
+                <span className="text-gray-600 shrink-0">🏪 가게명</span>
+                <input 
+                  type="text" 
+                  value={result.store_name}
+                  onChange={e => setResult({ ...result, store_name: e.target.value })}
+                  className="font-bold text-lg text-right bg-transparent border-b border-transparent hover:border-gray-300 focus:border-emerald-500 focus:outline-none transition-colors max-w-[200px]"
+                />
               </div>
               
               <div className="flex justify-between items-center py-2 border-b border-dashed border-gray-200">
-                <span className="text-gray-600">📅 날짜</span>
-                <span className="font-semibold">{result.receipt_date}</span>
+                <span className="text-gray-600 shrink-0">📅 날짜</span>
+                <input 
+                  type="date" 
+                  value={result.receipt_date}
+                  onChange={e => setResult({ ...result, receipt_date: e.target.value })}
+                  className="font-semibold text-right bg-transparent focus:outline-none focus:ring-1 focus:ring-emerald-500 rounded px-1"
+                />
               </div>
               
               <div className="flex justify-between items-center py-3 bg-emerald-50 rounded-xl px-4">
-                <span className="text-emerald-700 font-semibold">💰 총액</span>
-                <span className="font-extrabold text-2xl text-emerald-700">{formatAmount(result.total_amount)}</span>
+                <span className="text-emerald-700 font-semibold shrink-0">💰 총액</span>
+                <div className="flex items-center gap-1">
+                  <span className="text-emerald-700 font-extrabold text-xl">₩</span>
+                  <input 
+                    type="number" 
+                    value={result.total_amount}
+                    onChange={e => setResult({ ...result, total_amount: Number(e.target.value) || 0 })}
+                    className="font-extrabold text-2xl text-emerald-700 text-right bg-transparent focus:outline-none w-32"
+                  />
+                </div>
               </div>
               
               <div className="flex justify-between items-center py-2">
