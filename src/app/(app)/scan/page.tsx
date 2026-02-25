@@ -31,6 +31,7 @@ export default function ScanPage() {
   const [saving, setSaving] = useState(false)
   const [currentStep, setCurrentStep] = useState(0)
   const fileRef = useRef<HTMLInputElement>(null)
+  const galleryRef = useRef<HTMLInputElement>(null)
   const router = useRouter()
 
   function handleFile(file: File) {
@@ -148,46 +149,43 @@ export default function ScanPage() {
       {/* Camera/Upload Area */}
       {!image ? (
         <div className="animate-fade-in animate-stagger-2">
-          <div
-            onClick={() => fileRef.current?.click()}
-            className="relative glass-card rounded-3xl p-16 text-center cursor-pointer hover:bg-gray-50 transition-all group overflow-hidden"
-            style={{
-              background: 'linear-gradient(135deg, rgba(5, 150, 105, 0.02) 0%, rgba(13, 148, 136, 0.02) 100%)'
-            }}
-          >
-            {/* Animated dashed border */}
-            <div className="absolute inset-4 border-2 border-dashed border-emerald-300 rounded-2xl animate-dash-flow opacity-50" 
-                 style={{
-                   backgroundImage: 'linear-gradient(45deg, transparent 25%, rgba(5, 150, 105, 0.1) 25%, rgba(5, 150, 105, 0.1) 50%, transparent 50%, transparent 75%, rgba(5, 150, 105, 0.1) 75%)',
-                   backgroundSize: '20px 20px'
-                 }}>
-            </div>
-            
-            {/* Pulsing camera icon */}
-            <div className="relative">
-              <div className="inline-flex items-center justify-center w-20 h-20 gradient-primary rounded-full mb-4 animate-pulse-soft shadow-glow">
-                <Camera className="h-10 w-10 text-white" />
+          <div className="space-y-3">
+            {/* Camera button - rear camera */}
+            <button
+              onClick={() => fileRef.current?.click()}
+              className="w-full bg-white rounded-2xl p-8 text-center border-2 border-dashed border-emerald-300 hover:bg-emerald-50 transition-all"
+            >
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-emerald-600 rounded-full mb-3">
+                <Camera className="h-8 w-8 text-white" />
               </div>
-              
-              {/* Floating capture hint */}
-              <div className="absolute -top-2 -right-2 bg-emerald-500 text-white text-xs px-2 py-1 rounded-full animate-bounce-soft">
-                터치!
-              </div>
-            </div>
-            
-            <h3 className="text-lg font-bold text-emerald-700 mb-2 group-hover:scale-105 transition-transform">
-              영수증을 촬영하세요 📸
-            </h3>
-            <p className="text-sm text-gray-500 leading-relaxed">
-              카메라로 촬영하거나<br />
-              갤러리에서 선택하세요
-            </p>
+              <h3 className="text-base font-bold text-gray-900 mb-1">📸 카메라로 촬영</h3>
+              <p className="text-xs text-gray-400">후면 카메라가 자동으로 열립니다</p>
+            </button>
             
             <input 
               ref={fileRef} 
               type="file" 
               accept="image/*" 
               capture="environment" 
+              className="hidden"
+              onChange={e => e.target.files?.[0] && handleFile(e.target.files[0])} 
+            />
+
+            {/* Gallery button - no capture attr */}
+            <button
+              onClick={() => galleryRef.current?.click()}
+              className="w-full bg-white rounded-2xl p-6 text-center border border-gray-200 hover:bg-gray-50 transition-all"
+            >
+              <div className="inline-flex items-center justify-center w-12 h-12 bg-gray-100 rounded-full mb-2">
+                <Upload className="h-5 w-5 text-gray-600" />
+              </div>
+              <h3 className="text-sm font-bold text-gray-700">🖼️ 갤러리에서 선택</h3>
+            </button>
+            
+            <input 
+              ref={galleryRef} 
+              type="file" 
+              accept="image/*" 
               className="hidden"
               onChange={e => e.target.files?.[0] && handleFile(e.target.files[0])} 
             />
