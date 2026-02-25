@@ -3,7 +3,7 @@ import { useState, useRef } from 'react'
 import { Camera, Upload, Loader2, Check, X, Sparkles, ArrowRight } from 'lucide-react'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
-import { createReceipt } from '@/app/actions/receipts'
+import { createClient } from '@/lib/supabase/client'
 import { getCategoryInfo, formatAmount, CATEGORIES, type CategoryKey } from '@/lib/categories'
 
 interface AnalysisResult {
@@ -71,7 +71,12 @@ export default function ScanPage() {
     if (!result) return
     setSaving(true)
     try {
-      await createReceipt({
+      const supabase = createClient()
+      const { data: { user } } = await supabase.auth.getUser()
+      if (!user) { toast.error('로그인이 필요합니다'); setSaving(false); return }
+
+      const { error } = await supabase.from('receipts').insert({
+        user_id: user.id,
         store_name: result.store_name,
         receipt_date: result.receipt_date,
         total_amount: result.total_amount,
@@ -83,6 +88,7 @@ export default function ScanPage() {
         image_url: null,
         ai_metadata: { confidence: result.confidence },
       })
+      if (error) throw error
       toast.success('영수증이 저장되었습니다!')
       router.push('/receipts')
     } catch (err: unknown) {
